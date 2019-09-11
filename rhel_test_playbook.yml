@@ -1,0 +1,31 @@
+- name: test playbook
+  hosts: all
+  vars:
+    # you can pass this from extra_vars or survey or from inventory
+    # if passing from inventory, playbook vars (this section) will take precedence, so remove the following line
+    environment_name: rpt
+  vars_files: "environment\{{ environment_name }}.yml"
+
+  tasks:
+    - debug:
+        msg: "{{ hostvars[inventory_hostname] }}"
+
+    - name: set syscontrol
+      sysctl:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        state: present
+      loop: "{{ sysctl }}"
+
+
+    # alternative implementation
+    - name: set syscontrol config
+      template:
+        src: sysctl.conf.j2
+        dest: /etc/sysctl.conf
+
+    # set motd message
+    - name: set motd
+      template:
+        src: motd.conf.j2
+        dest: /etc/issue

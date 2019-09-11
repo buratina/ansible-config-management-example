@@ -1,0 +1,19 @@
+---
+ntp_server: 10.0.0.1
+systcl:
+  - name: kernel.ctrl-alt-del
+    value: 1
+  - name: kernel.exec-shield
+    value: 1
+  - name: net.core.somaxconn
+    value: 128
+  - name: net.ipv4.tcp_window_scaling
+    value: 1
+
+sysctl_alt:
+  kernel_ctrl_alt_del: 1
+  kernel_exec_shield: 1
+  net_core_somaxconn: 128
+  net_ipv4_tcp_window_scaling: 1
+
+motd_message: rpt environment - be responsible!
